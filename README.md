@@ -1,45 +1,43 @@
-### **Uso del Sistema para Consultar Autores**
+# Project Title: Author Management System
 
-## Método `getAuthorsByUniversity`
+## Descripción
 
-Este método es la principal función del sistema. Se encuentra en la clase `Search` y su propósito es obtener una lista
-de autores de una universidad específica utilizando la API de SerpApi.
+El sistema de gestión de autores es una aplicación diseñada para facilitar la administración de información académica relacionada con autores de diversas universidades. Utiliza tecnologías como Hibernate para la persistencia de datos y Maven para la gestión de dependencias y construcción del proyecto.
 
-### Parámetros
+## Características
 
-El método `getAuthorsByUniversity` espera un parámetro:
+- Búsqueda y gestión de autores por universidad.
+- Operaciones CRUD completas para la entidad `Author`.
+- Interacción con API externa para obtener datos de autores.
 
-- `university`: Una cadena de texto que representa el nombre de la universidad de la que se quieren obtener los autores.
+## Tecnologías Utilizadas
 
-### Retorno
+- Java
+- Maven
+- Hibernate
+- MySQL
+- Gson para el manejo de JSON
+- JitPack para repositorios adicionales
 
-El método devuelve un objeto `AuthorResult`. Este objeto contiene dos campos:
+## Configuración del Proyecto
 
-- `authors`: Una lista de objetos `Author`, donde cada `Author` representa a un autor de la universidad especificada.
-  Cada objeto `Author` tiene los siguientes campos:
-    - `name`: El nombre del autor.
-    - `authorId`: El ID del autor.
-    - `link`: El enlace al perfil del autor.
-    - `affiliations`: Las afiliaciones del autor.
-    - `email`: El correo electrónico del autor.
+### Requisitos
 
-- `message`: Una cadena de texto que representa un mensaje sobre el resultado de la búsqueda. Este mensaje puede indicar
-  si la búsqueda fue exitosa o si hubo algún error.
+- Java JDK 22
+- Maven 3.6 o superior
+- MySQL 8.0.28 o superior
 
-## Variables de Entorno
+## Uso Básico
 
-Para un correcto funcionamiento del sistema se requiere la creación de un archivo nombrado como "*.env*" en el
-directorio del proyecto 'src/main/resources' que incluirá el valor de la variable "API_KEY".
+El sistema de gestión de autores permite realizar búsquedas y gestionar información de autores académicos a través de una interfaz de consola.
 
-### Ejemplo de uso
+### Buscar Autores por Universidad
 
-```java
-Search search = new Search();
-AuthorResult result = search.getAuthorsByUniversity("UNAM");
-result.authors().forEach(author -> System.out.println(
-    "Author: " + author.getName() + "\n" +
-    "Author ID: " + author.getAuthorId() + "\n" +
-    "Link: " + author.getLink() + "\n" +
-    "Affiliations: " + author.getAffiliations() + "\n" +
-    "Email: " + author.getEmail() + "\n"
-));
+Para buscar autores asociados con una universidad específica, sigue estos pasos:
+
+1. **Iniciar la aplicación**:
+   Ejecuta el sistema desde la línea de comando utilizando el siguiente comando:
+   ```bash
+   java -jar target/nao-articles-1.0-SNAPSHOT.jar
+
+
