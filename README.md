@@ -25,7 +25,7 @@ El sistema de gestión de autores es una aplicación diseñada para facilitar la
 
 - Java JDK 22
 - Maven 3.6 o superior
-- MySQL 8.0.28 o superior
+- MySQL_Connector 8.0.28 o superior
 
 ## Uso Básico
 
@@ -50,6 +50,7 @@ Para buscar autores asociados con una universidad específica, sigue estos pasos
 
 3. **Visualización de resultados:**
    El sistema recuperará y mostrará en consola los autores de la universidad especificada. Cada autor se presentará con sus detalles correspondientes.
+
    *Ejemplo de salida*
    ```bash
    Please insert the name of the university to get the authors from: 
