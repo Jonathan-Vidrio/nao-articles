@@ -39,5 +39,53 @@ Para buscar autores asociados con una universidad específica, sigue estos pasos
    Ejecuta el sistema desde la línea de comando utilizando el siguiente comando:
    ```bash
    java -jar target/nao-articles-1.0-SNAPSHOT.jar
+   ```
 
+2. **Introducir el nombre de la universidad:**
+   Al iniciar, el sistema te pedirá que introduzcas el nombre de la universidad de la cual deseas obtener autores:
+   ```bash
+   Please insert the name of the university to get the authors from:
+   ```
+   Escribe el nombre de la universidad y presiona Enter.
 
+3. **Visualización de resultados:**
+   El sistema recuperará y mostrará en consola los autores de la universidad especificada. Cada autor se presentará con sus detalles correspondientes.
+   *Ejemplo de salida*
+   ```bash
+   Please insert the name of the university to get the authors from: 
+   unam
+   
+   Authors from unam extracted from the API:
+   
+   Author: Rafael Lozano
+   Author ID: 7Fl-fjIAAAAJ
+   Link: https://scholar.google.com/citations?hl=en&user=7Fl-fjIAAAAJ
+   Affiliations: Professor, University of Washington Institute for Health Metrics and Evaluation, UNAM FAC …
+   Email: Verified email at uw.edu
+   
+   Author: Leonid Serkin
+   Author ID: fKlpWLcAAAAJ
+   Link: https://scholar.google.com/citations?hl=en&user=fKlpWLcAAAAJ
+   Affiliations: Instituto de Ciencias Nucleares, Universidad Nacional Autónoma de México
+   Email: Verified email at correo.nucleares.unam.mx
+
+   ...
+
+   Authors from the database:
+   
+   Id: 1
+   Author: Rafael Lozano
+   Author ID: 7Fl-fjIAAAAJ
+   Link: https://scholar.google.com/citations?hl=en&user=7Fl-fjIAAAAJ
+   Affiliations: Professor, University of Washington Institute for Health Metrics and Evaluation, UNAM FAC …
+   Email: Verified email at uw.edu
+   
+   Id: 2
+   Author: Leonid Serkin
+   Author ID: fKlpWLcAAAAJ
+   Link: https://scholar.google.com/citations?hl=en&user=fKlpWLcAAAAJ
+   Affiliations: Instituto de Ciencias Nucleares, Universidad Nacional Autónoma de México
+   Email: Verified email at correo.nucleares.unam.mx
+
+   ...
+   ```
