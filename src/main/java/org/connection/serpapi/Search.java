@@ -3,12 +3,8 @@ package org.connection.serpapi;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 import io.github.cdimascio.dotenv.Dotenv;
-import models.Author;
-import models.AuthorResult;
 
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URLEncoder;
 import java.net.http.HttpClient;
@@ -16,19 +12,32 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
-import java.util.List;
 
+/**
+ * Search class is responsible for building the HTTP client, request, and sending the request to the SERP API.
+ *
+ * @author Jugh
+ * @version 1.0
+ */
 
 public class Search {
     private final HttpClient client;
     private final Gson gson;
 
+    /**
+     * Constructor for the Search class.
+     */
     public Search() {
         this.client = buildHttpClient();
         this.gson = new Gson();
     }
 
-    private HttpClient buildHttpClient() {
+    /**
+     * Builds the HTTP client.
+     *
+     * @return HttpClient
+     */
+    public HttpClient buildHttpClient() {
         return HttpClient.newBuilder()
                 .version(HttpClient.Version.HTTP_2)
                 .followRedirects(HttpClient.Redirect.NORMAL)
@@ -36,7 +45,13 @@ public class Search {
                 .build();
     }
 
-    private HttpRequest buildRequest(String university) {
+    /**
+     * Builds the HTTP request.
+     *
+     * @param university The university to search for.
+     * @return HttpRequest
+     */
+    public HttpRequest buildRequest(String university) {
         String apiKey = Dotenv.load().get("API_KEY");
         String encodedUniversity = URLEncoder.encode(university, StandardCharsets.UTF_8);
         String url = "https://serpapi.com/search.json?engine=google_scholar_profiles&mauthors=" + encodedUniversity + "&api_key=" + apiKey;
@@ -49,49 +64,35 @@ public class Search {
                 .build();
     }
 
-    private HttpResponse<String> sendRequest(HttpRequest request) throws Exception {
+    /**
+     * Sends the HTTP request.
+     *
+     * @param request The HTTP request to send.
+     * @return HttpResponse<String>
+     * @throws Exception If the request fails.
+     */
+    public HttpResponse<String> sendRequest(HttpRequest request) throws Exception {
         return client.send(request, HttpResponse.BodyHandlers.ofString());
     }
 
-    private boolean isEmptyResponse(String responseBody) {
+    /**
+     * Checks if the response body is empty.
+     *
+     * @param responseBody The response body to check.
+     * @return boolean
+     */
+    public boolean isEmptyResponse(String responseBody) {
         return responseBody.isEmpty();
     }
 
-    private JsonArray getProfilesArray(String responseBody) {
+    /**
+     * Gets the profiles array from the response body.
+     *
+     * @param responseBody The response body to get the profiles array from.
+     * @return JsonArray
+     */
+    public JsonArray getProfilesArray(String responseBody) {
         JsonObject jsonObject = gson.fromJson(responseBody, JsonObject.class);
         return jsonObject.getAsJsonArray("profiles");
-    }
-
-    private List<Author> convertJsonToAuthors(JsonArray profilesArray) {
-        Type listType = new TypeToken<List<Author>>() {
-        }.getType();
-        return gson.fromJson(profilesArray, listType);
-    }
-
-    private AuthorResult parseResponse(String responseBody) {
-        if (isEmptyResponse(responseBody)) {
-            return new AuthorResult(null, "Empty response body");
-        }
-
-        JsonArray profilesArray = getProfilesArray(responseBody);
-
-        if (profilesArray == null) {
-            return new AuthorResult(null, "No profiles found");
-        }
-
-        List<Author> authors = convertJsonToAuthors(profilesArray);
-
-        return new AuthorResult(authors, "Success");
-    }
-
-    public AuthorResult getAuthorsByUniversity(String university) {
-        HttpRequest request = buildRequest(university);
-
-        try {
-            HttpResponse<String> response = sendRequest(request);
-            return parseResponse(response.body());
-        } catch (Exception e) {
-            return new AuthorResult(null, e.getMessage());
-        }
     }
 }

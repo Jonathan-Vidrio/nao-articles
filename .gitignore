@@ -8,6 +8,3 @@ target/
 *.iws
 *.iml
 *.ipr
-
-### ENV ###
-src/main/resources/.env
